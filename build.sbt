@@ -1,4 +1,4 @@
-name := "FirstScalaProjekt"
+name := "die-kellerkaengurus"
 
 version := "0.1"
 
