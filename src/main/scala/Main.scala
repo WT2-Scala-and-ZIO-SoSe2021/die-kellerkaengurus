@@ -1,14 +1,10 @@
 object Main extends App {
-  println("Hello, world!")
+  // TASK 1
+  def max(arr: Array[Int]): Option[Int] = if (arr.isEmpty) None else Some(arr.reduce((x, y) => x max y))
 
-  // TODO: TASK 1
-  def max(arr: Array[Int]): Int = arr.reduce((x, y) => x max y)
-  def min(arr: Array[Int]): Int = arr.reduce((x,y) => x min y)
-  def sum(arr: Array[Int]): Int = arr.reduce((x,y) => x + y)
+  def min(arr: Array[Int]): Option[Int] = if (arr.isEmpty) None else Some(arr.reduce((x, y) => x min y))
 
-  val x = Array(1,2,3)
-  val sumVal = sum(x)
-  print(sumVal)
+  def sum(arr: Array[Int]): Int = arr.fold(0)((x, y) => x + y)
 
   // TODO: TASK 2
 }
