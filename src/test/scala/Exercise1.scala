@@ -54,12 +54,12 @@ class Exercise1 extends AnyFlatSpec {
     Main.parse("1") shouldBe None
   }
 
-  "parseAll" should "return 12 for cards 2 and K" in {
-    Main.parseAll(Array("2", "K")) shouldBe 12
+  "parseAll" should "return Array(2, 10) for cards 2 and K" in {
+    Main.parseAll(Array("2", "K")) shouldBe Array(2, 10)
   }
 
-  it should "return 0 for empty card array" in {
-    Main.parseAll(Array()) shouldBe 0
+  it should "return an empty array for an empty card array" in {
+    Main.parseAll(Array()) shouldBe Array()
   }
 
   /* Task 2B */
