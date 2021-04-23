@@ -6,8 +6,6 @@ class Exercise1 extends AnyFlatSpec {
   val optimisticHand: Array[Int] = Array(2, 2, 11, 3, 2)
   val pessimisticHand: Array[Int] = Array(2, 2, 11, 3, 4)
   val optionalHand: Array[Int] = Array(11, 11, 9)
-  val optimisticStrategy = Main.optimisticF
-  val pessimisticStrategy = Main.pessimisticF
 
   /* Task 1 */
   "max" should "return the biggest number in the list" in {
