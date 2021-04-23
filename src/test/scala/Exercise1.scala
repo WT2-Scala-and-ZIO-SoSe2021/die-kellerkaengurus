@@ -5,6 +5,7 @@ class Exercise1 extends AnyFlatSpec {
   val array: Array[Int] = Array(1, 3, 6, 8, 2)
   val optimisticHand: Array[Int] = Array(2, 2, 11, 3, 2)
   val pessimisticHand: Array[Int] = Array(2, 2, 11, 3, 4)
+  val optionalHand: Array[Int] = Array(11, 11, 9)
   val optimisticStrategy = Main.optimisticF
   val pessimisticStrategy = Main.pessimisticF
 
@@ -102,5 +103,10 @@ class Exercise1 extends AnyFlatSpec {
 
   it should "return 12 for card array [2, 2, 11, 3, 4]" in {
     Main.determineBestHandValue(pessimisticHand) shouldBe 12
+  }
+
+  /* Optional Task */
+  "determineBestHandValue" should "return 21 for card array [11, 11, 9]" in {
+    Main.determineBestHandValue(optionalHand) shouldBe 21
   }
 }
