@@ -1,8 +1,9 @@
 package exercise2
 
 import org.scalatest.flatspec.AnyFlatSpec
-import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
+import org.scalatest.matchers.should.Matchers.{an, convertToAnyShouldWrapper, thrownBy}
 
+import java.util.EmptyStackException
 import scala.annotation.tailrec
 
 class StackTest extends AnyFlatSpec {
@@ -27,7 +28,19 @@ class StackTest extends AnyFlatSpec {
   "pop" should "return the new stack without the top element" in {
     val stack = new Stack[Int].push(3)
     val extendedStack = stack.push(5)
+
+    extendedStack.pop().isFailure shouldBe false
     checkEqual(extendedStack.pop().get, stack)
+  }
+
+  it should "return failure with an empty stack exception for an empty stack" in {
+    val stack = new Stack[Int]()
+    val poppedStack = stack.pop()
+
+    poppedStack.isFailure shouldEqual true
+    an [EmptyStackException] shouldBe thrownBy {
+      poppedStack.get
+    }
   }
 
   "top" should "return the top element of the stack" in {

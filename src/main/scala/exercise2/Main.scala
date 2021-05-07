@@ -6,9 +6,7 @@ object Main extends App {
   println(a)
 
   val b = a.map(x => x * 4) // Right(8)
-  val x = a.flatMap(x => Ior.unit(new Throwable))
   println(b)
-  println(x)
 
   val c = b.flatMap(_ => Ior.right("a string")) //Right("a string")
   println(c)

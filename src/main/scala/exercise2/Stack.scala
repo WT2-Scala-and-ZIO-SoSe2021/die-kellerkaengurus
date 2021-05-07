@@ -8,10 +8,8 @@ class Stack[T] (elem: Option[T] = None, tail: Option[Stack[T]] = None) extends S
 
   override def push(elem: T): StackLike[T] = this.pushOption(Option(elem))
 
-  private def pushOption(elem: Option[T]): Stack[T] = new Stack[T](elem, Option(this))
-
   override def pop(): Try[StackLike[T]] = tail match {
-    case Some(value) => Success(value)
+    case Some(tail) => Success(tail)
     case None => Failure(new EmptyStackException)
   }
 
@@ -20,6 +18,8 @@ class Stack[T] (elem: Option[T] = None, tail: Option[Stack[T]] = None) extends S
   override def isEmpty: Boolean = elem.isEmpty && tail.isEmpty
 
   override def reverse: StackLike[T] = recursiveReverse(new Stack[T])
+
+  private def pushOption(elem: Option[T]): Stack[T] = new Stack[T](elem, Option(this))
 
   @tailrec
   private def recursiveReverse(stack: Stack[T]): Stack[T] = tail match {
