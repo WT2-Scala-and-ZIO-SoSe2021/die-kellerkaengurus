@@ -56,6 +56,8 @@ object Synthesizer {
   @tailrec
   final def loop(queue: QueueLike[Double])(f: Double => Unit): Unit = {
     val newQueue = update(queue)
+    if (Math.abs(newQueue.front().get) < 0.000001)
+      return
     f(newQueue.front().get)
     loop(newQueue)(f)
   }

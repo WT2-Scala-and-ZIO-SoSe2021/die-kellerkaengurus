@@ -34,39 +34,69 @@ object Main extends App {
   val both4 = both.flatMap(x => Ior.both[Throwable, Int](new RuntimeException("another not fatal"), x * 3)) //Both(java.lang.RuntimeException: another not fatal,63)
   println(both4)
 
-  val whiteNoise = Synthesizer.whiteNoise(frequency = 100)
-  Synthesizer.loop(whiteNoise)(StdAudio.play)
+  // frequency parameter is actually wavelength
+  // "Alle meine Entchen" aber mit falschen Tonlängen :)
 
-  val a1 = Synthesizer.whiteNoise()
-  val d1 = Synthesizer.whiteNoise(294)
-  val e1 = Synthesizer.whiteNoise(330)
-  val f1 = Synthesizer.whiteNoise(349)
-  val g1 = Synthesizer.whiteNoise(392)
-  val h1 = Synthesizer.whiteNoise(493)
+  val a1 = Synthesizer.whiteNoise(78) // 78 // 440
+  val c1 = Synthesizer.whiteNoise(131) // 131 // 262
+  val d1 = Synthesizer.whiteNoise(117) // 117 // 294
+  val e1 = Synthesizer.whiteNoise(104) // 104 // 330
+  val f1 = Synthesizer.whiteNoise(98) // 98 // 349
+  val g1 = Synthesizer.whiteNoise(87) // 87 // 392
+  val h1 = Synthesizer.whiteNoise(69) // 69 // 493
 
-  Synthesizer.loop(d1)(StdAudio.play) // kurz
+  Synthesizer.loop(c1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(d1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(e1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(f1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(g1)(StdAudio.play) // 2
   Thread.sleep(200)
-  Synthesizer.loop(e1)(StdAudio.play) // kurz
-  Synthesizer.loop(f1)(StdAudio.play) // kurz
-  Synthesizer.loop(g1)(StdAudio.play) // kurz
-  Synthesizer.loop(a1)(StdAudio.play) // lang
-  Synthesizer.loop(a1)(StdAudio.play) // lang
-  Synthesizer.loop(h1)(StdAudio.play) // kurz
-  Synthesizer.loop(h1)(StdAudio.play) // kurz
-  Synthesizer.loop(h1)(StdAudio.play) // kurz
-  Synthesizer.loop(h1)(StdAudio.play) // kurz
-  Synthesizer.loop(a1)(StdAudio.play) // lang
-  // pause
-  Synthesizer.loop(g1)(StdAudio.play) // kurz
-  Synthesizer.loop(g1)(StdAudio.play) // kurz
-  Synthesizer.loop(g1)(StdAudio.play) // kurz
-  Synthesizer.loop(g1)(StdAudio.play) // kurz
-  Synthesizer.loop(f1)(StdAudio.play) // lang
-  Synthesizer.loop(f1)(StdAudio.play) // lang
-  Synthesizer.loop(a1)(StdAudio.play) // kurz
-  Synthesizer.loop(a1)(StdAudio.play) // kurz
-  Synthesizer.loop(a1)(StdAudio.play) // kurz
-  Synthesizer.loop(a1)(StdAudio.play) // kurz
-  Synthesizer.loop(d1)(StdAudio.play) // lang
+  Synthesizer.loop(g1)(StdAudio.play) // 2
+  Thread.sleep(200)
+  Synthesizer.loop(a1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(a1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(a1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(a1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(g1)(StdAudio.play) // 4
+  Thread.sleep(400)
+  Synthesizer.loop(a1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(a1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(a1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(a1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(g1)(StdAudio.play) // 4
+  Thread.sleep(400)
+  Synthesizer.loop(f1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(f1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(f1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(f1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(e1)(StdAudio.play) // 2
+  Thread.sleep(200)
+  Synthesizer.loop(e1)(StdAudio.play) // 2
+  Thread.sleep(200)
+  Synthesizer.loop(g1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(g1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(g1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(g1)(StdAudio.play) // 1
+  Thread.sleep(100)
+  Synthesizer.loop(c1)(StdAudio.play) // 4
 
 }
