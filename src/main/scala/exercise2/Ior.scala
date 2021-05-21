@@ -1,9 +1,9 @@
 package exercise2
 
-sealed trait Ior[A] {
+sealed trait Ior[E <: Throwable, A] {
   // Remember that flatMap is right biased, so it only works on A.
   // Hint: you will probably need nested pattern matching for this
-  def flatMap[B](f: A => Ior[B]): Ior[B] = this match {
+  def flatMap[E1 >: E <: Throwable, B](f: A => Ior[E1, B]): Ior[E1, B] = this match {
     case Left(elem) => Left(elem)
     case Right(elem) => f(elem)
     case Both(left, elem) => f(elem) match {
@@ -13,7 +13,7 @@ sealed trait Ior[A] {
     }
   }
 
-  def map[B](f: A => B): Ior[B] = flatMap(elem => Ior.unit(f(elem)))
+  def map[E1 >: E <: Throwable, B](f: A => B): Ior[E1, B] = flatMap(elem => Ior.unit(f(elem)))
 }
 
 case class Left[A](elem: Throwable) extends Ior[A]
