@@ -13,7 +13,7 @@ object Main extends App {
   val c = b.flatMap(_ => Ior.right("a string")) //Right("a string")
   println(c)
 
-  val d = c.flatMap(_ => Ior.left[String](new RuntimeException("a grave error"))) //Left(java.lang.RuntimeException: a grave error)
+  val d = c.flatMap(_ => Ior.left[Throwable, String](new RuntimeException("a grave error"))) //Left(java.lang.RuntimeException: a grave error)
   println(d)
 
   val e = d.map(x => x + "something") //Left(java.lang.RuntimeException: a grave error)
@@ -25,7 +25,7 @@ object Main extends App {
   val both1 = both.map(x => x * 2) //Both(java.lang.RuntimeException: not fatal,42)
   println(both1)
 
-  val both2 = both.flatMap(_ => Ior.left[Int](new RuntimeException("fatal error"))) //Left(java.lang.RuntimeException: fatal error)
+  val both2 = both.flatMap(_ => Ior.left[Throwable, Int](new RuntimeException("fatal error"))) //Left(java.lang.RuntimeException: fatal error)
   println(both2)
 
   val both3 = both.flatMap(_ => Ior.right(480)) //Both(java.lang.RuntimeException: not fatal,480)
