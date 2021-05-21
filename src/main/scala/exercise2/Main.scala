@@ -37,12 +37,12 @@ object Main extends App {
   // frequency parameter is actually wavelength
   // "Alle meine Entchen" aber mit falschen Tonlängen :)
 
-  val a1 = Synthesizer.whiteNoise(78) // 78 // 440
   val c1 = Synthesizer.whiteNoise(131) // 131 // 262
   val d1 = Synthesizer.whiteNoise(117) // 117 // 294
   val e1 = Synthesizer.whiteNoise(104) // 104 // 330
   val f1 = Synthesizer.whiteNoise(98) // 98 // 349
   val g1 = Synthesizer.whiteNoise(87) // 87 // 392
+  val a1 = Synthesizer.whiteNoise(78) // 78 // 440
   val h1 = Synthesizer.whiteNoise(69) // 69 // 493
 
   Synthesizer.loop(c1)(StdAudio.play) // 1
