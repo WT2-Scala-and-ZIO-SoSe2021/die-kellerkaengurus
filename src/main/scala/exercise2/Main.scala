@@ -38,22 +38,35 @@ object Main extends App {
   Synthesizer.loop(whiteNoise)(StdAudio.play)
 
   val a1 = Synthesizer.whiteNoise()
-  val d1 = Synthesizer.whiteNoise(293)
-  val e1 = Synthesizer.whiteNoise(329)
+  val d1 = Synthesizer.whiteNoise(294)
+  val e1 = Synthesizer.whiteNoise(330)
   val f1 = Synthesizer.whiteNoise(349)
   val g1 = Synthesizer.whiteNoise(392)
   val h1 = Synthesizer.whiteNoise(493)
 
-  Synthesizer.loop(d1)(StdAudio.play)
-  Synthesizer.loop(e1)(StdAudio.play)
-  Synthesizer.loop(f1)(StdAudio.play)
-  Synthesizer.loop(g1)(StdAudio.play)
-  Synthesizer.loop(a1)(StdAudio.play)
-  Synthesizer.loop(a1)(StdAudio.play)
-  Synthesizer.loop(h1)(StdAudio.play)
-  Synthesizer.loop(h1)(StdAudio.play)
-  Synthesizer.loop(h1)(StdAudio.play)
-  Synthesizer.loop(h1)(StdAudio.play)
-  Synthesizer.loop(a1)(StdAudio.play)
+  Synthesizer.loop(d1)(StdAudio.play) // kurz
+  Thread.sleep(200)
+  Synthesizer.loop(e1)(StdAudio.play) // kurz
+  Synthesizer.loop(f1)(StdAudio.play) // kurz
+  Synthesizer.loop(g1)(StdAudio.play) // kurz
+  Synthesizer.loop(a1)(StdAudio.play) // lang
+  Synthesizer.loop(a1)(StdAudio.play) // lang
+  Synthesizer.loop(h1)(StdAudio.play) // kurz
+  Synthesizer.loop(h1)(StdAudio.play) // kurz
+  Synthesizer.loop(h1)(StdAudio.play) // kurz
+  Synthesizer.loop(h1)(StdAudio.play) // kurz
+  Synthesizer.loop(a1)(StdAudio.play) // lang
+  // pause
+  Synthesizer.loop(g1)(StdAudio.play) // kurz
+  Synthesizer.loop(g1)(StdAudio.play) // kurz
+  Synthesizer.loop(g1)(StdAudio.play) // kurz
+  Synthesizer.loop(g1)(StdAudio.play) // kurz
+  Synthesizer.loop(f1)(StdAudio.play) // lang
+  Synthesizer.loop(f1)(StdAudio.play) // lang
+  Synthesizer.loop(a1)(StdAudio.play) // kurz
+  Synthesizer.loop(a1)(StdAudio.play) // kurz
+  Synthesizer.loop(a1)(StdAudio.play) // kurz
+  Synthesizer.loop(a1)(StdAudio.play) // kurz
+  Synthesizer.loop(d1)(StdAudio.play) // lang
 
 }
