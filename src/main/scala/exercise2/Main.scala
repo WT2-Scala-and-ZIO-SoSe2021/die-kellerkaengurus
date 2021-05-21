@@ -1,5 +1,7 @@
 package exercise2
 
+import exercise2.lib.{StdAudio, Synthesizer}
+
 object Main extends App {
 
   val a = Ior.right(2) // Right(2)
@@ -31,4 +33,27 @@ object Main extends App {
 
   val both4 = both.flatMap(x => Ior.both(new RuntimeException("another not fatal"), x * 3)) //Both(java.lang.RuntimeException: another not fatal,63)
   println(both4)
+
+  val whiteNoise = Synthesizer.whiteNoise(frequency = 100)
+  Synthesizer.loop(whiteNoise)(StdAudio.play)
+
+  val a1 = Synthesizer.whiteNoise()
+  val d1 = Synthesizer.whiteNoise(293)
+  val e1 = Synthesizer.whiteNoise(329)
+  val f1 = Synthesizer.whiteNoise(349)
+  val g1 = Synthesizer.whiteNoise(392)
+  val h1 = Synthesizer.whiteNoise(493)
+
+  Synthesizer.loop(d1)(StdAudio.play)
+  Synthesizer.loop(e1)(StdAudio.play)
+  Synthesizer.loop(f1)(StdAudio.play)
+  Synthesizer.loop(g1)(StdAudio.play)
+  Synthesizer.loop(a1)(StdAudio.play)
+  Synthesizer.loop(a1)(StdAudio.play)
+  Synthesizer.loop(h1)(StdAudio.play)
+  Synthesizer.loop(h1)(StdAudio.play)
+  Synthesizer.loop(h1)(StdAudio.play)
+  Synthesizer.loop(h1)(StdAudio.play)
+  Synthesizer.loop(a1)(StdAudio.play)
+
 }
