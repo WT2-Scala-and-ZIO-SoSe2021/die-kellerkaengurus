@@ -10,7 +10,7 @@ object Main extends App {
   val b = a.map(x => x * 4) // Right(8)
   println(b)
 
-  val c = b.flatMap(_ => Ior.right("a string")) //Right("a string")
+  val c = b.flatMap(_ => Ior.right[Throwable, String]("a string")) //Right("a string")
   println(c)
 
   val d = c.flatMap(_ => Ior.left[Throwable, String](new RuntimeException("a grave error"))) //Left(java.lang.RuntimeException: a grave error)
@@ -28,10 +28,10 @@ object Main extends App {
   val both2 = both.flatMap(_ => Ior.left[Throwable, Int](new RuntimeException("fatal error"))) //Left(java.lang.RuntimeException: fatal error)
   println(both2)
 
-  val both3 = both.flatMap(_ => Ior.right(480)) //Both(java.lang.RuntimeException: not fatal,480)
+  val both3 = both.flatMap(_ => Ior.right[Throwable, Int](480)) //Both(java.lang.RuntimeException: not fatal,480)
   println(both3)
 
-  val both4 = both.flatMap(x => Ior.both(new RuntimeException("another not fatal"), x * 3)) //Both(java.lang.RuntimeException: another not fatal,63)
+  val both4 = both.flatMap(x => Ior.both[Throwable, Int](new RuntimeException("another not fatal"), x * 3)) //Both(java.lang.RuntimeException: another not fatal,63)
   println(both4)
 
   val whiteNoise = Synthesizer.whiteNoise(frequency = 100)

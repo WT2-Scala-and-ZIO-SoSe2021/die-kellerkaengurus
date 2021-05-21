@@ -11,7 +11,7 @@ class IorTest extends AnyFlatSpec {
   }
 
   "flatMap" should "map the Ior element using the passed function" in {
-    val result = Ior.unit(3).flatMap(_ => Ior.right("a string"))
+    val result = Ior.unit(3).flatMap(_ => Ior.right[Throwable, String]("a string"))
 
     result shouldBe Right("a string")
   }
