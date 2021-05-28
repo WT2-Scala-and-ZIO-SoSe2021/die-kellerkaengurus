@@ -6,11 +6,11 @@ package object temperature {
 
   implicit class TemperatureConverter(d: Temperature) {
     val FREEZING_POINT: Temperature = 0
-    val ABSOLUTE_ZERO: Temperature = 0.0.kelvin
+    val ABSOLUTE_ZERO: Temperature = -273.15
 
-    def fahrenheit: Temperature = (d * 9/5) + 32
+    def fahrenheit: Temperature = (d * 9 / 5) + 32
 
-    def kelvin: Temperature = d - 273.15
+    def kelvin: Temperature = d + ABSOLUTE_ZERO
 
     def celsius: Temperature = d
 
@@ -19,9 +19,9 @@ package object temperature {
 
   def display(temperature: Temperature)(implicit locale: Locale = Locales.Other): String = {
     locale match {
-      case Locales.Other => temperature.celsius + " °C"
-      case Locales.US => temperature.fahrenheit + " °F"
-      case Locales.SCI => temperature.kelvin + " °K"
+      case Locales.Other => temperature.celsius + "°C"
+      case Locales.US => temperature.fahrenheit + "°F"
+      case Locales.SCI => temperature.kelvin + "°K"
     }
   }
 }
