@@ -1,12 +1,20 @@
 package exercise3
 
+import exercise3.Locales.Locale
 import temperature._
 
 class TemperatureTest {
   def run(): Unit = {
-    println(86.345.fahrenheit avg 3.6.celsius)
+    implicit val l: Locale = Locales.Other
 
-    //implicit val locale: Locale = Locales.US
-    println(display(25.7.celsius))
+    val t1 = 86.345.fahrenheit
+    val t2 = 3.6.celsius
+
+    println(display(t1))
+    println(display(t2))
+
+    println(display(t1 avg t2))
+
+    println(display(25.8.celsius))
   }
 }

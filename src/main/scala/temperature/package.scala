@@ -8,7 +8,7 @@ package object temperature {
     val FREEZING_POINT: Temperature = 0
     val ABSOLUTE_ZERO: Temperature = -273.15
 
-    def fahrenheit: Temperature = (d * 9 / 5) + 32
+    def fahrenheit: Temperature = d - 32 * 1.8
 
     def kelvin: Temperature = d + ABSOLUTE_ZERO
 
