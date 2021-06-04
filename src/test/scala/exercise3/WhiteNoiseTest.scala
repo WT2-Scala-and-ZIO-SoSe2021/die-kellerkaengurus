@@ -8,40 +8,46 @@ import zio.test.environment._
 import scala.annotation.tailrec
 
 object WhiteNoiseTest extends DefaultRunnableSpec {
+  @tailrec
+  def checkVolume(queue: QueueLike[Double], volume: Double): Boolean = {
+    if (queue.isEmpty)
+      return true
+
+    val front = queue.front().get
+    if (front < -0.5 * volume || front > 0.5 * volume)
+      return false
+
+    val newQueue = queue.dequeue()
+    checkVolume(newQueue.get, volume)
+  }
+
+  @tailrec
+  def countQueueElements(queue: QueueLike[Double], counter: Int = 0): Int = {
+    if (queue.isEmpty)
+      return counter
+    val newQueue = queue.dequeue()
+    countQueueElements(newQueue.get, counter + 1)
+  }
+
   override def spec: Spec[TestEnvironment, TestFailure[Nothing], TestSuccess] = suite("White Noise Tests")(
     testM("creates a queue of values between -0.5 and 0.5 for volume = 1") {
-      @tailrec
-      def dequeue(queue: QueueLike[Double]): Boolean = {
-        if (queue.isEmpty)
-          return true
-
-        val front = queue.front().get
-        if (front < -0.5 || front > 0.5)
-          return false
-
-        val newQueue = queue.dequeue()
-        dequeue(newQueue.get)
-      }
-
       for {
         whiteNoise <- ZioMain.whiteNoise()
-        result = dequeue(whiteNoise)
+        result = checkVolume(whiteNoise, 1)
+      } yield assert(result)(isTrue)
+    },
+    testM("creates a queue of values between -0.5 and 0.5 scaled by the volume") {
+      val volume = 0.8
+      for {
+        whiteNoise <- ZioMain.whiteNoise(volume = volume)
+        result = checkVolume(whiteNoise, volume)
       } yield assert(result)(isTrue)
     },
     testM("creates a queue containing <frequency> values") {
       val frequency = 200
-
-      @tailrec
-      def dequeue(queue: QueueLike[Double], counter: Int): Int = {
-        if (queue.isEmpty)
-          return counter
-        val newQueue = queue.dequeue()
-        dequeue(newQueue.get, counter + 1)
-      }
-
       for {
         whiteNoise <- ZioMain.whiteNoise(frequency)
-        counter = dequeue(whiteNoise, 0)
+        counter = countQueueElements(whiteNoise)
       } yield assert(counter)(equalTo(frequency))
     }
   )
