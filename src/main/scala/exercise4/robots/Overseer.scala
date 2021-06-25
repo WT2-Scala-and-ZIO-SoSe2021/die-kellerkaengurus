@@ -1,15 +1,13 @@
 package exercise4.robots
-import exercise4.{CompletedJobsHub, MyEnv, News, Robot}
-import zio.{Has, Schedule, ZIO, ZManaged}
+import exercise4.{CompletedJobsHub, News, Robot}
+import zio.{Has, URIO}
 
 class Overseer(val name: String = "Overseer") extends Robot {
-  val executeTask: ZManaged[Has[News] with Has[CompletedJobsHub], Nothing, Unit] = for {
-    queue <- CompletedJobsHub.subscribe()
-    job <- queue.take.toManaged_
-    _ <- News.post(s"${job.completedBy.name} completed ${job.name}, yayyy").toManaged_
-  } yield ()
+  val executeTask: URIO[Has[News] with Has[CompletedJobsHub], Unit] = CompletedJobsHub.subscribe().use(q =>
+      q.take.flatMap(job => News.post(s"${job.completedBy.name} completed ${job.name}, yayyy")).forever
+    )
 
-  override def work: ZIO[MyEnv, Any, Unit] = for {
-    _ <- executeTask.useForever
+  override def work: URIO[Has[News] with Has[CompletedJobsHub], Unit] = for {
+    _ <- executeTask
   } yield ()
 }

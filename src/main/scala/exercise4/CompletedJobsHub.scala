@@ -1,21 +1,21 @@
 package exercise4
 
-import zio.{Dequeue, Has, Hub, Managed, UIO, ULayer, URIO, ZIO, ZLayer, ZManaged}
+import zio.{Dequeue, Has, Hub, Managed, UIO, ULayer, UManaged, URIO, URManaged, ZIO, ZLayer}
 
 trait CompletedJobsHub {
-  def subscribe: ZManaged[Any, Nothing, Dequeue[CompletedJob]]
+  def subscribe: UManaged[Dequeue[CompletedJob]]
 
   def publish(job: CompletedJob): UIO[Unit]
 }
 
 case class CompletedJobsHubLive(hub: Hub[CompletedJob]) extends CompletedJobsHub {
-  override def subscribe: ZManaged[Any, Nothing, Dequeue[CompletedJob]] = hub.subscribe
+  override def subscribe: UManaged[Dequeue[CompletedJob]] = hub.subscribe
 
   override def publish(job: CompletedJob): UIO[Unit] = hub.publish(job).unit
 }
 
 object CompletedJobsHub {
-  def subscribe(): ZManaged[Has[CompletedJobsHub], Nothing, Dequeue[CompletedJob]] = Managed.accessManaged[Has[CompletedJobsHub]](_.get.subscribe)
+  def subscribe(): URManaged[Has[CompletedJobsHub], Dequeue[CompletedJob]] = Managed.accessManaged[Has[CompletedJobsHub]](_.get.subscribe)
 
   def publish(job: CompletedJob): URIO[Has[CompletedJobsHub], Unit] = ZIO.serviceWith[CompletedJobsHub](_.publish(job))
 }

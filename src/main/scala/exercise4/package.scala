@@ -1,15 +1,14 @@
-import zio.{Has, ZEnv, ZIO, ZLayer}
+import zio.{Has, URIO}
 import zio.clock.Clock
+import zio.console.Console
 
 import java.time.Duration
 
 package object exercise4 {
-  type MyEnv = Has[JobBoard] with Has[CompletedJobsHub] with Has[News] with Clock
-
   trait Robot {
     val name: String
 
-    def work: ZIO[MyEnv, Any, Unit]
+    def work: URIO[Has[JobBoard] with Has[CompletedJobsHub] with Has[News] with Clock with Console, Unit]
   }
 
   sealed trait Job {
