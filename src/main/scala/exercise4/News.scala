@@ -10,17 +10,13 @@ trait News {
 
 // Module Pattern 2.0
 
-case class NewsLive() extends News {
-  val queue: UIO[Queue[String]] = Queue.unbounded[String]
-
+case class NewsLive(queue: Queue[String]) extends News {
   override def post(news: String): UIO[Unit] = for {
-    q <- queue
-    _ <- q.offer(news)
+    _ <- queue.offer(news)
   } yield()
 
   override def proclaim(): UIO[String] = for {
-    q <- queue
-    s <- q.take
+    s <- queue.take
   } yield s
 }
 
@@ -31,5 +27,5 @@ object News {
 }
 
 object NewsLive {
-  val layer: ULayer[Has[News]] = ZLayer.succeed(NewsLive)
+  val layer: ULayer[Has[News]] = ZLayer.fromEffect(Queue.unbounded[String].map(queue => NewsLive(queue)))
 }

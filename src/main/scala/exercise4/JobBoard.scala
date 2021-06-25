@@ -16,17 +16,13 @@ trait JobBoard {
 
 // Module Pattern 2.0
 
-case class JobBoardLive() extends JobBoard {
-  val queue: UIO[Queue[PendingJob]] = Queue.unbounded[PendingJob]
-
+case class JobBoardLive(queue: Queue[PendingJob]) extends JobBoard {
   override def submit(job: PendingJob): UIO[Unit] = for {
-    q <- queue
-    _ <- q.offer(job)
+    _ <- queue.offer(job)
   } yield ()
 
   override def take(): UIO[PendingJob] = for {
-    q <- queue
-    job <- q.take
+    job <- queue.take
   } yield job
 }
 
@@ -37,5 +33,5 @@ object JobBoard {
 }
 
 object JobBoardLive {
-  val layer: ULayer[Has[JobBoard]] =  ZLayer.succeed(JobBoardLive)
+  val layer: ULayer[Has[JobBoard]] = ZLayer.fromEffect(Queue.unbounded[PendingJob].map(queue => JobBoardLive(queue)))
 }

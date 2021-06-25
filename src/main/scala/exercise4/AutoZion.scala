@@ -10,10 +10,10 @@ import zio.duration.Duration
  * the Elders and start the Reporter last synchronously(for simplicity).
  * Make sure to have at least 2 Workers and Elders and at least one of each other type.
  */
-class AutoZion extends App {
+object AutoZion extends App {
   def work(): ZIO[MyEnv, Any, Unit] = {
     val elder1 = new Elder("Justus Jonas")
-    val elder2 = new Elder("Ronny")
+    val elder2 = new Elder("Ronnie")
     val worker1 = new Worker("Kevin")
     val worker2 = new Worker("Abdullah, der Grausame, çüs")
     val overseer = new Overseer("Bob")
