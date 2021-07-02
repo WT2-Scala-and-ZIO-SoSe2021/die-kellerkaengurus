@@ -5,6 +5,7 @@ import exercise4.robots.{Elder, Overseer, Praiser, Reporter, Worker}
 import zio.clock.Clock
 import zio.console.Console
 import zio.duration.Duration
+import zio.random.Random
 
 /**
  * Build a day in AutoZion as your ZIO Program. Build in a small delay before starting
@@ -12,7 +13,7 @@ import zio.duration.Duration
  * Make sure to have at least 2 Workers and Elders and at least one of each other type.
  */
 object AutoZion extends App {
-  def work(): URIO[Has[JobBoard] with Has[CompletedJobsHub] with Has[News] with Clock with Console, Unit] = {
+  def work(): URIO[Has[JobBoard] with Has[CompletedJobsHub] with Has[News] with Clock with Console with Random, Unit] = {
     val elder1 = new Elder("Justus Jonas")
     val elder2 = new Elder("Ronnie")
     val worker1 = new Worker("Kevin")
